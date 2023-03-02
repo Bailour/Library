@@ -1,0 +1,80 @@
+﻿@model IPagedList<Books>
+@using PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc.Common;
+@using PagedList.Mvc;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Books Record in Library</h1>
+
+<p class="w-100 d-flex container justify-content-end">
+    <a class="btn btn-primary btn-sm" asp-action="Create">Create New</a>
+</p>
+<table class="table table-hover table-responsive">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Sub Category
+            </th>
+            <th>
+                Publish Date Time
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublicationDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Bookid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Bookid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Bookid">Delete</a>
+            </td>
+        </tr>
+}
+        
+
+    </tbody>
+</table>
+
+<div class="pager">
+    <div class="row container">
+        <div class="col-12 d-flex justify-content-end">
+            <p class="pt-3">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount </p>
+            <a class="btn btn-primary btn-sm m-2" href="https://localhost:44351/Books/Index/@(Model.PageNumber-1)">Pervious</a>
+            <a class="btn btn-primary btn-sm m-2" href="https://localhost:44351/Books/Index/@(Model.PageNumber+1)">Next</a>
+        </div>
+    </div>
+</div>

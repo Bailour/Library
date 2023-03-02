@@ -1,0 +1,106 @@
+﻿@model Library_System.Models.Books
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h4>Edit Book</h4>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var now = new Date();
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        $('#PublicationDate').val(today);
+
+        $("#Category").change(function () {
+            var val = $(this).val();
+            if (val == "Romance") {
+                $("#SubCategory").html("<option value='Contemporary Romance'>Contemporary Romance</option><option value='Historical Romance'>Historical Romance</option><option value='Paranormal Romance'>Paranormal Romance</option><option value='Erotic Romance'>Erotic Romance</option>");
+            } else if (val == "Mystery") {
+                $("#SubCategory").html("<option value='Cozy Mystery'>Cozy Mystery</option><option value='Suspense'>Suspense</option>");
+            } else if (val == "Science") {
+                $("#SubCategory").html("<option value='High Fantasy'>High Fantasy</option><option value='Urbar Fantasy'>Urbar Fantasy</option>");
+            } else if (val == "Young") {
+                $("#SubCategory").html("<option value='Sapiens'>Sapiens</option><option value='The_Rise_and_fall'>The Rise and Fall</option>");
+            } else if (val == "Historical") {
+                $("#SubCategory").html("<option value='Sapiens'>Sapiens</option><option value='The_Rise_and_fall'>The Rise and Fall</option>");
+            } else if (val == "Children") {
+                $("#SubCategory").html("<option value='Sapiens'>Sapiens</option><option value='The_Rise_and_fall'>The Rise and Fall</option>");
+            } else if (val == "Horror") {
+                $("#SubCategory").html("<option value='Sapiens'>Sapiens</option><option value='The_Rise_and_fall'>The Rise and Fall</option>");
+            } else if (val == "Humor") {
+                $("#SubCategory").html("<option value='Sapiens'>Sapiens</option><option value='The_Rise_and_fall'>The Rise and Fall</option>");
+            }
+        });
+    });
+</script>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Bookid" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group m-1">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="form-control">
+                    <option value="Romance">Romance</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Science">Science Fiction</option>
+                    <option value="Young">Young Adult</option>
+                    <option value="Historical">Historical Fiction</option>
+                    <option value="Children">Children's Books'</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Humor">Humor</option>
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group m-1">
+                <label asp-for="SubCategory" class="control-label"></label>
+                <select asp-for="SubCategory" class="form-control">
+                    <option value='The_Bourne_Identity'>The Bourne Identity</option>
+                    <option value='The_Da_Vinci_Code'>The Da Vinci Code</option>
+                    <option value='The_Hobbit'>The Hobbit</option>
+                    <option value='The_Maze_Runner'>The Maze Runner</option>
+                </select>
+                <span asp-validation-for="SubCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublicationDate" class="control-label"></label>
+                <input asp-for="PublicationDate" class="form-control" />
+                <span asp-validation-for="PublicationDate" class="text-danger"></span>
+            </div>
+            <div class="w-100 mt-3 mb-3 d-flex justify-content-center">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
